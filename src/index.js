@@ -9,6 +9,7 @@ app.set("view engine", "html");
 nunjucks.configure(`${__dirname}/views`, {
   autoescape: true,
   express: app,
+  noCache: process.env.NODE_ENV !== "production",
 });
 
 app.use(routes);
