@@ -17,10 +17,10 @@
 
     <div class="album py-5 bg-light">
       <div class="container">
-        <ul class="column-count-4">
+        <ul class="list-unstyled column-count-4">
           {% for car in cars %}
             <li>
-              <a href="{{ car.link }}">
+              <a href="{{ car.link }}" class="btn btn-link">
                 {{ car.name }}
               </a>
             </li>
