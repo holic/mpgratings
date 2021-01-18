@@ -1,6 +1,7 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
 const app = express();
+const routes = require("./routes");
 
 const port = process.env.PORT || 5000;
 
@@ -10,9 +11,7 @@ nunjucks.configure(`${__dirname}/views`, {
   express: app,
 });
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.use(routes);
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);
