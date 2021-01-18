@@ -47,11 +47,28 @@ router.get("/models/:makeModelSlug", (req, res) => {
     (mm) => mm.makeModelSlug === req.params.makeModelSlug
   );
 
-  console.log(modelYears.slice(0, 4));
-
   res.render("model", {
     model,
     cars: modelYears,
+  });
+});
+
+router.get("/:makeModelYearSlug", (req, res) => {
+  const makeModelYear = makeModelYears.find(
+    (m) => m.slug === req.params.makeModelYearSlug
+  );
+  if (!makeModelYear) {
+    // TODO: better 404 page
+    return res.status(404).send("Not found");
+  }
+
+  const variants = cars.filter(
+    (mm) => mm.makeModelYearSlug === req.params.makeModelYearSlug
+  );
+
+  res.render("car", {
+    makeModelYear,
+    variants,
   });
 });
 
