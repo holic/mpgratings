@@ -23,12 +23,12 @@
           <div class="col">
             <div class="list-group">
               {% for make in makes.slice(0, 10) %}
-                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                  {{ make.make }}
-                  <span class="badge rounded-pill bg-light text-dark">{{make.count.toLocaleString()}}</span>
+                <a href="{{ make.link }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                  {{ make.name }}
+                  <span class="badge rounded-pill bg-light text-dark">{{ make.count.toLocaleString() }}</span>
                 </a>
               {% endfor %}
-              <a href="#" class="list-group-item list-group-item-action list-group-item-light">
+              <a href="/makes" class="list-group-item list-group-item-action list-group-item-light">
                 All makes
                 <i class="bi bi-arrow-right"></i>
               </a>
