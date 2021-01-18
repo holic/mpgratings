@@ -30,4 +30,27 @@ router.get("/makes/:makeSlug", (req, res) => {
   });
 });
 
+router.get("/models", (req, res) => {
+  res.render("models", {
+    models: makeModels,
+  });
+});
+
+router.get("/models/:makeModelSlug", (req, res) => {
+  const model = makeModels.find((m) => m.slug === req.params.makeModelSlug);
+  if (!model) {
+    // TODO: better 404 page
+    return res.status(404).send("Not found");
+  }
+
+  const modelYears = cars.filter(
+    (mm) => mm.makeModelSlug === req.params.makeModelSlug
+  );
+
+  res.render("model", {
+    model,
+    cars: modelYears,
+  });
+});
+
 module.exports = router;

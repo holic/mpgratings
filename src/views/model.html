@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  {{ model.name }} gas mileage: MPG ratings for {{ model.name }} by year
+{% endblock %}
+
+{% block content %}
+  <main>
+    <section class="container text-center">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">{{ model.name }} gas mileage</h1>
+          <p class="lead text-muted">See how the fuel economy of the {{ model.name }} has changed over the years.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+          {% for car in cars %}
+            <div class="col d-flex justify-content-center">
+              <a href="{{ car.link }}">
+                {{ car.year }} {{ car.make }} {{ car.model}}
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </main>
+{% endblock %}
