@@ -5,6 +5,9 @@
     "start": "node src/index.js",
     "dev": "nodemon npm start"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "express": "^4.17.1"
   },
