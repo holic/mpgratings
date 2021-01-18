@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "mpgratings.org",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon npm start"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
