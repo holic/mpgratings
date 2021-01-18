@@ -72,8 +72,8 @@ const makeModels = sortedMakeModels.map((slug) => {
 
 const sortedMakeModelYears = orderBy(
   Object.keys(byMakeModelYear),
-  (slug) => -byMakeModelYear[slug].length,
-  "desc"
+  (slug) => slug,
+  "asc"
 );
 const makeModelYears = sortedMakeModelYears.map((slug) => {
   const filteredCars = byMakeModelYear[slug];
