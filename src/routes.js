@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { cars, makes, makeModels } = require("./cars");
+const { cars, makes, makeModels, makeModelYears } = require("./cars");
 
 router.get("/", (req, res) => {
   res.render("index", {
@@ -43,9 +43,11 @@ router.get("/models/:makeModelSlug", (req, res) => {
     return res.status(404).send("Not found");
   }
 
-  const modelYears = cars.filter(
+  const modelYears = makeModelYears.filter(
     (mm) => mm.makeModelSlug === req.params.makeModelSlug
   );
+
+  console.log(modelYears.slice(0, 4));
 
   res.render("model", {
     model,

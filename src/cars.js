@@ -8,16 +8,15 @@ const slugify = (str) =>
     .replace(/^-+|-+$/g, "");
 
 const cars = require("../data/vehicles.json").map((car) => {
-  const slug = slugify(`${car.year} ${car.make} ${car.model}`);
   const makeSlug = slugify(`${car.make}`);
   const makeModel = `${car.make} ${car.model}`;
-  const makeModelSlug = slugify(`${car.make} ${car.model}`);
+  const makeModelSlug = slugify(makeModel);
   const yearSlug = slugify(`${car.year}`);
+  const makeModelYear = `${car.year} ${car.make} ${car.model}`;
+  const makeModelYearSlug = slugify(makeModelYear);
 
   return {
     ...car,
-    slug,
-    link: `/${slug}`,
     makeSlug,
     makeLink: `/makes/${makeSlug}`,
     makeModel,
@@ -25,12 +24,16 @@ const cars = require("../data/vehicles.json").map((car) => {
     makeModelLink: `/models/${makeModelSlug}`,
     yearSlug,
     yearLink: `/years/${yearSlug}`,
+    makeModelYear,
+    makeModelYearSlug,
+    makeModelYearLink: `/${makeModelYearSlug}`,
   };
 });
 
 const byMake = groupBy(cars, "makeSlug");
 const byMakeModel = groupBy(cars, "makeModelSlug");
 const byYear = groupBy(cars, "yearSlug");
+const byMakeModelYear = groupBy(cars, "makeModelYearSlug");
 
 const sortedMakes = orderBy(
   Object.keys(byMake),
@@ -67,6 +70,28 @@ const makeModels = sortedMakeModels.map((slug) => {
   };
 });
 
+const sortedMakeModelYears = orderBy(
+  Object.keys(byMakeModelYear),
+  (slug) => -byMakeModelYear[slug].length,
+  "desc"
+);
+const makeModelYears = sortedMakeModelYears.map((slug) => {
+  const filteredCars = byMakeModelYear[slug];
+  const car = filteredCars[0];
+  return {
+    slug,
+    name: car.makeModelYear,
+    link: car.makeModelYearLink,
+    make: car.make,
+    makeSlug: car.makeSlug,
+    makeLink: car.makeLink,
+    makeModel: car.makeModel,
+    makeModelSlug: car.makeModelSlug,
+    makeModelLink: car.makeModelLink,
+    count: filteredCars.length,
+  };
+});
+
 module.exports = {
   cars,
   byMake,
@@ -74,4 +99,5 @@ module.exports = {
   byYear,
   makes,
   makeModels,
+  makeModelYears,
 };
