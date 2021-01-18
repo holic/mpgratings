@@ -1,9 +1,35 @@
-{% extends "page.html" %}
+{% extends "layout.html" %}
 
 {% block title %}
   MPG Ratings: fuel economy and gas mileage for all car and truck makes and models
 {% endblock %}
 
-{% block body %}
-  {{ count }} vehicles
+{% block content %}
+  <main>
+    <section class="container text-center">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Gas mileage database</h1>
+          <p class="lead text-muted">Shopping for a new car or truck? We've studied {{ count.toLocaleString() }} vehicles to find you the best fuel economy. Save money and save the world!</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <h2>Browse makes</h2>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div class="col">
+            <ul>
+              {% for make in makes | sort %}
+                <li>{{ make }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
 {% endblock %}
