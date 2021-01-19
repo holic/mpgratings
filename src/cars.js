@@ -1,5 +1,6 @@
 const orderBy = require("lodash/sortBy");
 const groupBy = require("lodash/groupBy");
+const identity = require("lodash/identity");
 
 const slugify = (str) =>
   str
@@ -70,27 +71,37 @@ const makeModels = sortedMakeModels.map((slug) => {
   };
 });
 
-const sortedMakeModelYears = orderBy(
-  Object.keys(byMakeModelYear),
-  (slug) => slug,
-  "asc"
-);
-const makeModelYears = sortedMakeModelYears.map((slug) => {
-  const filteredCars = byMakeModelYear[slug];
-  const car = filteredCars[0];
-  return {
-    slug,
-    name: car.makeModelYear,
-    link: car.makeModelYearLink,
-    make: car.make,
-    makeSlug: car.makeSlug,
-    makeLink: car.makeLink,
-    makeModel: car.makeModel,
-    makeModelSlug: car.makeModelSlug,
-    makeModelLink: car.makeModelLink,
-    count: filteredCars.length,
-  };
-});
+const makeModelYears = orderBy(Object.keys(byMakeModelYear))
+  .reverse()
+  .map((slug) => {
+    const filteredCars = byMakeModelYear[slug];
+    const car = filteredCars[0];
+    return {
+      slug,
+      name: car.makeModelYear,
+      link: car.makeModelYearLink,
+      make: car.make,
+      makeSlug: car.makeSlug,
+      makeLink: car.makeLink,
+      makeModel: car.makeModel,
+      makeModelSlug: car.makeModelSlug,
+      makeModelLink: car.makeModelLink,
+      count: filteredCars.length,
+    };
+  });
+
+const years = orderBy(Object.keys(byYear))
+  .reverse()
+  .map((slug) => {
+    const filteredCars = byYear[slug];
+    const car = filteredCars[0];
+    return {
+      slug,
+      name: car.year,
+      link: car.yearLink,
+      count: filteredCars.length,
+    };
+  });
 
 module.exports = {
   cars,
@@ -100,4 +111,5 @@ module.exports = {
   makes,
   makeModels,
   makeModelYears,
+  years,
 };

@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { cars, makes, makeModels, makeModelYears } = require("./cars");
+const { cars, makes, makeModels, makeModelYears, years } = require("./cars");
 
 router.get("/", (req, res) => {
   res.render("index", {
     count: cars.length,
     makes,
+    models: makeModels,
+    years,
   });
 });
 

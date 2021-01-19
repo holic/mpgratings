@@ -17,10 +17,10 @@
 
     <div class="album py-5 bg-light">
       <div class="container">
-        <h2>Browse makes</h2>
-
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col">
+            <h2>Makes</h2>
+
             <div class="list-group">
               {% for make in makes.slice(0, 10) %}
                 <a href="{{ make.link }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
@@ -30,6 +30,40 @@
               {% endfor %}
               <a href="/makes" class="list-group-item list-group-item-action list-group-item-light">
                 All makes
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col">
+            <h2>Models</h2>
+
+            <div class="list-group">
+              {% for model in models.slice(0, 10) %}
+                <a href="{{ model.link }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                  {{ model.name }}
+                  <span class="badge rounded-pill bg-light text-dark">{{ model.count.toLocaleString() }}</span>
+                </a>
+              {% endfor %}
+              <a href="/models" class="list-group-item list-group-item-action list-group-item-light">
+                All models
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col">
+            <h2>Model years</h2>
+
+            <div class="list-group">
+              {% for year in years.slice(0, 10) %}
+                <a href="{{ year.link }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                  {{ year.name }}
+                  <span class="badge rounded-pill bg-light text-dark">{{ year.count.toLocaleString() }}</span>
+                </a>
+              {% endfor %}
+              <a href="/years" class="list-group-item list-group-item-action list-group-item-light">
+                All years
                 <i class="bi bi-arrow-right"></i>
               </a>
             </div>
