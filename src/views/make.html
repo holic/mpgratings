@@ -17,24 +17,17 @@
 
     <div class="album py-5 bg-light">
       <div class="container">
-        <h2>Browse models</h2>
+        <h2>{{ make.name }} models</h2>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <div class="col">
-            <div class="list-group">
-              {% for model in models.slice(0, 10) %}
-                <a href="{{ model.link }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                  {{ model.name }}
-                  <span class="badge rounded-pill bg-light text-dark">{{ model.cars.length.toLocaleString() }}</span>
-                </a>
-              {% endfor %}
-              <a href="/models" class="list-group-item list-group-item-action list-group-item-light">
-                All models
-                <i class="bi bi-arrow-right"></i>
+        <ul class="list-unstyled column-count-4">
+          {% for model in models %}
+            <li>
+              <a href="{{ model.link }}" class="btn btn-link text-start">
+                {{ model.name }}
               </a>
-            </div>
-          </div>
-        </div>
+            </li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
 

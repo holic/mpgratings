@@ -1,4 +1,5 @@
 const express = require("express");
+const orderBy = require("lodash/orderBy");
 const router = express.Router();
 const { cars, makes, makeModels, makeModelYears, years } = require("./cars");
 
@@ -47,7 +48,7 @@ router.get("/makes/:makeSlug", (req, res) => {
 
   res.render("make", {
     make,
-    models,
+    models: orderBy(models, "name"),
   });
 });
 
