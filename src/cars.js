@@ -24,7 +24,7 @@ const cars = require("../data/vehicles.json").map((car) => {
     makeModelSlug,
     makeModelLink: `/models/${makeModelSlug}`,
     yearSlug,
-    yearLink: `/years/${yearSlug}`,
+    yearLink: `/model-years/${yearSlug}`,
     makeModelYear,
     makeModelYearSlug,
     makeModelYearLink: `/${makeModelYearSlug}`,
