@@ -1,6 +1,5 @@
 const orderBy = require("lodash/sortBy");
 const groupBy = require("lodash/groupBy");
-const identity = require("lodash/identity");
 
 const slugify = (str) =>
   str
@@ -8,7 +7,7 @@ const slugify = (str) =>
     .replace(/[\W_]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-const cars = require("../data/vehicles.json").map((car) => {
+const cars = require("../data/cars.json").map((car) => {
   const makeSlug = slugify(`${car.make}`);
   const makeModel = `${car.make} ${car.model}`;
   const makeModelSlug = slugify(makeModel);
