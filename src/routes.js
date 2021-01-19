@@ -4,10 +4,29 @@ const { cars, makes, makeModels, makeModelYears, years } = require("./cars");
 
 router.get("/", (req, res) => {
   res.render("index", {
-    count: cars.length,
+    cars,
     makes,
     models: makeModels,
     years,
+  });
+});
+
+router.get("/:makeModelYearSlug", (req, res) => {
+  const makeModelYear = makeModelYears.find(
+    (m) => m.slug === req.params.makeModelYearSlug
+  );
+  if (!makeModelYear) {
+    // TODO: better 404 page
+    return res.status(404).send("Not found");
+  }
+
+  const variants = cars.filter(
+    (mm) => mm.makeModelYearSlug === req.params.makeModelYearSlug
+  );
+
+  res.render("car", {
+    makeModelYear,
+    variants,
   });
 });
 
@@ -55,22 +74,30 @@ router.get("/models/:makeModelSlug", (req, res) => {
   });
 });
 
-router.get("/:makeModelYearSlug", (req, res) => {
-  const makeModelYear = makeModelYears.find(
-    (m) => m.slug === req.params.makeModelYearSlug
-  );
-  if (!makeModelYear) {
+router.get("/model-years", (req, res) => {
+  res.render("years", {
+    years,
+  });
+});
+
+router.get("/model-years/:yearSlug", (req, res) => {
+  const year = years.find((m) => m.slug === req.params.yearSlug);
+  if (!year) {
     // TODO: better 404 page
     return res.status(404).send("Not found");
   }
 
-  const variants = cars.filter(
-    (mm) => mm.makeModelYearSlug === req.params.makeModelYearSlug
+  const yearMakes = makes.filter((make) =>
+    make.cars.find((car) => car.yearSlug === req.params.yearSlug)
+  );
+  const yearMakeModels = makeModels.filter((model) =>
+    model.cars.find((car) => car.yearSlug === req.params.yearSlug)
   );
 
-  res.render("car", {
-    makeModelYear,
-    variants,
+  res.render("year", {
+    year,
+    makes: yearMakes,
+    models: yearMakeModels,
   });
 });
 

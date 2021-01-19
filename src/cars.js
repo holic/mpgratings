@@ -48,7 +48,7 @@ const makes = sortedMakes.map((slug) => {
     slug,
     name: car.make,
     link: car.makeLink,
-    count: filteredCars.length,
+    cars: filteredCars,
   };
 });
 
@@ -67,7 +67,7 @@ const makeModels = sortedMakeModels.map((slug) => {
     make: car.make,
     makeSlug: car.makeSlug,
     makeLink: car.makeLink,
-    count: filteredCars.length,
+    cars: filteredCars,
   };
 });
 
@@ -86,7 +86,7 @@ const makeModelYears = orderBy(Object.keys(byMakeModelYear))
       makeModel: car.makeModel,
       makeModelSlug: car.makeModelSlug,
       makeModelLink: car.makeModelLink,
-      count: filteredCars.length,
+      cars: filteredCars,
     };
   });
 
@@ -99,7 +99,7 @@ const years = orderBy(Object.keys(byYear))
       slug,
       name: car.year,
       link: car.yearLink,
-      count: filteredCars.length,
+      cars: filteredCars,
     };
   });
 
