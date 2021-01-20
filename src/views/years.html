@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Gas mileage by model year
+{% endblock %}
+
+{% block content %}
+  <main>
+    <section class="container text-center">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Gas mileage by model year</h1>
+          <p class="lead text-muted">See how the fuel economy of the {{ model.name }} has changed over the years. Note that the EPA has only been tracking this since 1984.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <ul class="list-unstyled column-count-6">
+          {% for year in years %}
+            <li>
+              <a href="{{ year.link }}" class="btn btn-link text-start">
+                {{ year.name }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </main>
+{% endblock %}

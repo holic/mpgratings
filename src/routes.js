@@ -1,5 +1,6 @@
 const express = require("express");
 const orderBy = require("lodash/orderBy");
+const uniq = require("lodash/uniq");
 const router = express.Router();
 const { cars, makes, makeModels, makeModelYears, years } = require("./cars");
 
@@ -12,13 +13,13 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/:makeModelYearSlug", (req, res) => {
+router.get("/:makeModelYearSlug", (req, res, next) => {
   const makeModelYear = makeModelYears.find(
     (m) => m.slug === req.params.makeModelYearSlug
   );
   if (!makeModelYear) {
     // TODO: better 404 page
-    return res.status(404).send("Not found");
+    return next();
   }
 
   const variants = cars.filter(
@@ -37,11 +38,11 @@ router.get("/makes", (req, res) => {
   });
 });
 
-router.get("/makes/:makeSlug", (req, res) => {
+router.get("/makes/:makeSlug", (req, res, next) => {
   const make = makes.find((m) => m.slug === req.params.makeSlug);
   if (!make) {
     // TODO: better 404 page
-    return res.status(404).send("Not found");
+    return next();
   }
 
   const models = makeModels.filter((mm) => mm.makeSlug === req.params.makeSlug);
@@ -58,11 +59,11 @@ router.get("/models", (req, res) => {
   });
 });
 
-router.get("/models/:makeModelSlug", (req, res) => {
+router.get("/models/:makeModelSlug", (req, res, next) => {
   const model = makeModels.find((m) => m.slug === req.params.makeModelSlug);
   if (!model) {
     // TODO: better 404 page
-    return res.status(404).send("Not found");
+    return next();
   }
 
   const modelYears = makeModelYears.filter(
@@ -81,11 +82,11 @@ router.get("/model-years", (req, res) => {
   });
 });
 
-router.get("/model-years/:yearSlug", (req, res) => {
+router.get("/model-years/:yearSlug", (req, res, next) => {
   const year = years.find((m) => m.slug === req.params.yearSlug);
   if (!year) {
     // TODO: better 404 page
-    return res.status(404).send("Not found");
+    return next();
   }
 
   const yearMakes = makes.filter((make) =>
