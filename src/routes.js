@@ -1,6 +1,5 @@
 const express = require("express");
 const orderBy = require("lodash/orderBy");
-const uniq = require("lodash/uniq");
 const router = express.Router();
 const { cars, makes, makeModels, makeModelYears, years } = require("./cars");
 
@@ -34,7 +33,7 @@ router.get("/:makeModelYearSlug", (req, res, next) => {
 
 router.get("/makes", (req, res) => {
   res.render("makes", {
-    makes,
+    makes: orderBy(makes, "name"),
   });
 });
 
@@ -55,7 +54,7 @@ router.get("/makes/:makeSlug", (req, res, next) => {
 
 router.get("/models", (req, res) => {
   res.render("models", {
-    models: makeModels,
+    models: orderBy(makeModels, "name"),
   });
 });
 

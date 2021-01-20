@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Gas mileage by make/manufacturer
+{% endblock %}
+
+{% block content %}
+  <main>
+    <section class="container text-center">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Gas mileage by make/manufacturer</h1>
+          <p class="lead text-muted">Browse models by auto maker brand</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <ul class="list-unstyled column-count-6">
+          {% for make in makes %}
+            <li>
+              <a href="{{ make.link }}" class="btn btn-link text-start">
+                {{ make.name }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </main>
+{% endblock %}
