@@ -26,7 +26,24 @@ dotModels.forEach((model) => {
   });
 });
 
+// Add makes/models not included in the above data sets
+makesModels.push({ make: "Ford", model: "F150" });
+makesModels.push({ make: "Ford", model: "F250" });
+makesModels.push({ make: "Ford", model: "E150" });
+makesModels.push({ make: "Ford", model: "E250" });
+makesModels.push({ make: "Mazda", model: "2" });
+makesModels.push({ make: "Mazda", model: "3" });
+makesModels.push({ make: "Mazda", model: "5" });
+makesModels.push({ make: "Mazda", model: "6" });
+makesModels.push({ make: "Chevrolet", model: "S10" });
+makesModels.push({ make: "Chevrolet", model: "Astro" });
+makesModels.push({ make: "Pontiac", model: "Grand Am" });
+makesModels.push({ make: "Subaru", model: "Forester" });
+makesModels.push({ make: "Volkswagen", model: "Passat" });
+makesModels.push({ make: "Audi", model: "A4" });
+
 const sortedModels = _.orderBy(makesModels, "model.length", "desc");
+const skippedCars = [];
 
 const database = cars
   .map((car) => {
@@ -35,10 +52,17 @@ const database = cars
     );
 
     const makeModel =
-      possibleModels.find((m) => car.model.startsWith(m.model)) ||
-      possibleModels.find((m) => car.model.includes(m.model));
+      possibleModels.find((m) =>
+        car.model.toLowerCase().startsWith(m.model.toLowerCase())
+      ) ||
+      possibleModels.find((m) =>
+        car.model.toLowerCase().includes(m.model.toLowerCase())
+      );
 
+    // Skip any cars in the EPA database that don't have a
+    // well formed make/model name
     if (!makeModel) {
+      skippedCars.push(car);
       return;
     }
     const { model } = makeModel;
@@ -138,6 +162,21 @@ console.log(
   _.uniq(database.map((car) => `${car.make} ${car.modelVerbose}`)).length,
   "to",
   _.uniq(database.map((car) => `${car.make} ${car.model}`)).length
+);
+
+const skippedModelCounts = _.countBy(
+  skippedCars.map((car) => `${car.make} ${car.model}`)
+);
+const skippedModels = _.orderBy(
+  Object.keys(skippedModelCounts),
+  (key) => skippedModelCounts[key],
+  "desc"
+);
+
+console.log(
+  skippedModels.length,
+  "skipped makes/models",
+  skippedModels.map((model) => `${model} [${skippedModelCounts[model]}]`)
 );
 
 fs.writeFileSync(`${__dirname}/../data/cars.json`, JSON.stringify(database));
