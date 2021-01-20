@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
+const cars = require("../data/epa-vehicles.json");
 const dotModels = require("../data/dot-models.json");
 const carConnModels = require("../data/carconn-cars.json");
 
@@ -24,8 +25,6 @@ dotModels.forEach((model) => {
     });
   });
 });
-
-const cars = require("../data/epa-vehicles.json");
 
 const sortedModels = _.orderBy(makesModels, "model.length", "desc");
 
