@@ -2,8 +2,8 @@ const _ = require("lodash");
 const fetch = require("node-fetch");
 const fs = require("fs");
 
-const makes = require("../data/makes.json");
-const cars = require("../data/vehicles.json");
+const makes = require("../data/dot-makes.json");
+const cars = require("../data/epa-vehicles.json");
 
 const carMakes = _.uniq(cars.map((car) => car.make));
 const knownMakes = makes.filter((make) =>
@@ -30,5 +30,8 @@ Promise.all(
   })
 ).then(() => {
   console.log("done fetching, writing to file");
-  fs.writeFileSync(`${__dirname}/../data/models.json`, JSON.stringify(models));
+  fs.writeFileSync(
+    `${__dirname}/../data/dot-models.json`,
+    JSON.stringify(models)
+  );
 });
