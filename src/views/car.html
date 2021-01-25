@@ -73,12 +73,17 @@
           </tr>
         </thead>
         <tbody>
-          {% for variant in variants %}
+          {% for variant in variants | sort(true, false, 'comb08') %}
             <tr>
               <td>{{ variant.modelVerbose }} {{ variant.trany }} {{ variant.eng_dscr }}</td>
               <td>{{ variant.city08 }} MPG{% if variant.fuelType1 === 'Electricity' %}e{% endif %}</td>
               <td>{{ variant.highway08 }} MPG{% if variant.fuelType1 === 'Electricity' %}e{% endif %}</td>
-              <td>{{ variant.comb08 }} MPG{% if variant.fuelType1 === 'Electricity' %}e{% endif %}</td>
+              <td>
+                {{ variant.comb08 }} MPG{% if variant.fuelType1 === 'Electricity' %}e{% endif %}
+                {% if loop.first %}
+                  <i class="fas fa-star text-warning"></i>
+                {% endif %}
+              </td>
             </tr>
           {% endfor %}
         </tbody>
