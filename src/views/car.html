@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-  <main>
-    <section class="container p-5 bg-white bg-gradient rounded-3 shadow-lg text-center">
+  <main class="pb-5">
+    <section class="container p-5 bg-white bg-gradient rounded-3 shadow-lg text-center my-4">
       <h1 class="display-2 mb-4">
         <a href="{{ yearLink }}" class="text-reset text-decoration-none">{{ year }}</a>
         <a href="{{ makeLink }}" class="text-reset text-decoration-none">{{ make }}</a>
@@ -17,7 +17,7 @@
       <div class="d-flex justify-content-center">
 
         <h2 class="lh-1 d-flex flex-column-reverse align-items-center ms-4">
-          <div class="d-flex flex-row rounded position-relative border border-warning">
+          <div class="d-flex flex-row rounded position-relative border border-2 border-warning">
             <span class="d-flex align-items-center p-2 bg-warning fs-3">
               {% if isElectric %}
                 <i class="fas fa-charging-station text-black-50"></i>
@@ -38,7 +38,7 @@
         </h2>
 
         <h2 class="lh-1 d-flex flex-column-reverse align-items-center ms-4">
-          <div class="d-flex flex-row rounded position-relative border border-warning">
+          <div class="d-flex flex-row rounded position-relative border border-2 border-warning">
             <span class="d-flex align-items-center p-2 bg-warning fs-3">
               {% if isElectric %}
                 <i class="fas fa-charging-station text-black-50"></i>
