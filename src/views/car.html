@@ -6,18 +6,56 @@
 
 {% block content %}
   <main>
-    <section class="container text-center">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">{{ makeModelYear.name }} gas mileage</h1>
-          <p class="lead text-muted">
-            <!-- TODO -->
-          </p>
-        </div>
+    <section class="container p-5 bg-white bg-gradient rounded-3 shadow-lg">
+      <h1 class="display-2 text-center mb-4">{{ makeModelYear.name }}</h1>
+      <div class="d-flex justify-content-center">
+
+        <h2 class="lh-1 d-flex flex-column-reverse align-items-center ms-4">
+          <div class="d-flex flex-row rounded position-relative border border-warning">
+            <span class="d-flex align-items-center p-2 bg-warning fs-3">
+              {% if isElectric %}
+                <i class="fas fa-charging-station text-black-50"></i>
+              {% else %}
+                <i class="fas fa-gas-pump text-black-50"></i>
+              {% endif %}
+            </span>
+            <span class="d-flex flex-column align-items-center p-2 px-3 fw-bolder bg-white rounded">
+              <span class="fs-1">{{ mpgCity | round }}</span>
+              {% if isElectric %}
+                <abbr title="miles per gallon equivalent" class="fs-6 text-secondary fw-normal">MPGe</abbr>
+              {% else %}
+                <abbr title="miles per gallon" class="fs-6 text-secondary fw-normal">MPG</abbr>
+              {% endif %}
+            </span>
+          </div>
+          <span class="mb-n1 fs-6 pt-1 pb-2 d-flex align-self-stretch justify-content-center bg-light fw-bold rounded">City</span>
+        </h2>
+
+        <h2 class="lh-1 d-flex flex-column-reverse align-items-center ms-4">
+          <div class="d-flex flex-row rounded position-relative border border-warning">
+            <span class="d-flex align-items-center p-2 bg-warning fs-3">
+              {% if isElectric %}
+                <i class="fas fa-charging-station text-black-50"></i>
+              {% else %}
+                <i class="fas fa-gas-pump text-black-50"></i>
+              {% endif %}
+            </span>
+            <span class="d-flex flex-column align-items-center p-2 px-3 fw-bolder bg-white rounded">
+              <span class="fs-1">{{ mpgHighway | round }}</span>
+              {% if isElectric %}
+                <abbr title="miles per gallon equivalent" class="fs-6 text-secondary fw-normal">MPGe</abbr>
+              {% else %}
+                <abbr title="miles per gallon" class="fs-6 text-secondary fw-normal">MPG</abbr>
+              {% endif %}
+            </span>
+          </div>
+          <span class="mb-n1 fs-6 pt-1 pb-2 d-flex align-self-stretch justify-content-center bg-light fw-bold rounded">Highway</span>
+        </h2>
+
       </div>
     </section>
 
-    <div class="album py-5 bg-light">
+    <div class="album py-5">
       <div class="container">
         <h2>Configurations</h2>
         <ul class="column-count-3">

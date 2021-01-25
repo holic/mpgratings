@@ -3,6 +3,16 @@ const orderBy = require("lodash/orderBy");
 const router = express.Router();
 const { cars, makes, makeModels, makeModelYears, years } = require("./cars");
 
+const sum = (items) => items.reduce((total, item) => total + +item, 0);
+const mean = (items) => sum(items) / items.length;
+const median = (items) => {
+  const sorted = items.slice().sort();
+  const count = sorted.count;
+  return count % 2 === 0
+    ? (sorted[count / 2] + sorted[count / 2 - 1]) / 2
+    : sorted[(count - 1) / 2];
+};
+
 router.get("/", (req, res) => {
   res.render("index", {
     cars,
@@ -25,9 +35,20 @@ router.get("/:makeModelYearSlug", (req, res, next) => {
     (mm) => mm.makeModelYearSlug === req.params.makeModelYearSlug
   );
 
+  const mpgCity = mean(
+    variants.map((variant) => variant.city08).filter(Boolean)
+  );
+  const mpgHighway = mean(
+    variants.map((variant) => variant.highway08).filter(Boolean)
+  );
+  const isElectric = variants[0].fuelType1 === "Electricity";
+
   res.render("car", {
     makeModelYear,
     variants,
+    mpgCity,
+    mpgHighway,
+    isElectric, // boogie woogie woogie
   });
 });
 
