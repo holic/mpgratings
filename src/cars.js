@@ -1,11 +1,6 @@
 const orderBy = require("lodash/sortBy");
 const groupBy = require("lodash/groupBy");
-
-const slugify = (str) =>
-  str
-    .toLowerCase()
-    .replace(/[\W_]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+const slugify = require("./slugify");
 
 const cars = require("../data/cars.json").map((car) => {
   const makeSlug = slugify(`${car.make}`);

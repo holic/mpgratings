@@ -1,13 +1,17 @@
 {% extends "layout.html" %}
 
 {% block title %}
-  {{ makeModelYear.name }} gas mileage
+  {{ year }} {{ make }} {{ model }} gas mileage
 {% endblock %}
 
 {% block content %}
   <main>
     <section class="container p-5 bg-white bg-gradient rounded-3 shadow-lg text-center">
-      <h1 class="display-2 mb-4">{{ makeModelYear.name }}</h1>
+      <h1 class="display-2 mb-4">
+        <a href="{{ yearLink }}" class="text-reset text-decoration-none">{{ year }}</a>
+        <a href="{{ makeLink }}" class="text-reset text-decoration-none">{{ make }}</a>
+        <a href="{{ modelLink }}" class="text-reset text-decoration-none">{{ model }}</a>
+      </h1>
 
       <p class="h4 fw-light text-secondary mb-4">Average gas mileage across configurations:</p>
       <div class="d-flex justify-content-center">

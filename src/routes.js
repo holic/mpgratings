@@ -2,6 +2,7 @@ const express = require("express");
 const orderBy = require("lodash/orderBy");
 const router = express.Router();
 const { cars, makes, makeModels, makeModelYears, years } = require("./cars");
+const slugify = require("./slugify");
 
 const sum = (items) => items.reduce((total, item) => total + +item, 0);
 const mean = (items) => sum(items) / items.length;
@@ -41,11 +42,20 @@ router.get("/:makeModelYearSlug", (req, res, next) => {
   const mpgHighway = mean(
     variants.map((variant) => variant.highway08).filter(Boolean)
   );
-  const isElectric = variants[0].fuelType1 === "Electricity";
+
+  const firstVariant = variants[0];
+  const { make, model, year } = firstVariant;
+  const isElectric = firstVariant.fuelType1 === "Electricity";
 
   res.render("car", {
     makeModelYear,
     variants,
+    make,
+    makeLink: `/makes/${slugify(make)}`,
+    model,
+    modelLink: `/models/${slugify(`${make} ${model}`)}`,
+    year,
+    yearLink: `/model-years/${slugify(year)}`,
     mpgCity,
     mpgHighway,
     isElectric, // boogie woogie woogie
