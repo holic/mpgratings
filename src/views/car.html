@@ -61,18 +61,29 @@
       </div>
     </section>
 
-    <div class="album py-5">
-      <div class="container">
-        <h2>Configurations</h2>
-        <ul class="column-count-3">
+    <section class="container py-5">
+      <h3 class="display-6">Configurations</h3>
+      <table class="table table-hover" style="max-width: 60em;">
+        <thead>
+          <tr>
+            <th></th>
+            <th>City</th>
+            <th>Highway</th>
+            <th>Combined</th>
+          </tr>
+        </thead>
+        <tbody>
           {% for variant in variants %}
-            <li>
-              {{ variant.modelVerbose }} {{ variant.trany }} {{ variant.eng_dscr }}
-            </li>
+            <tr>
+              <td>{{ variant.modelVerbose }} {{ variant.trany }} {{ variant.eng_dscr }}</td>
+              <td>{{ variant.city08 }} MPG{% if variant.fuelType1 === 'Electricity' %}e{% endif %}</td>
+              <td>{{ variant.highway08 }} MPG{% if variant.fuelType1 === 'Electricity' %}e{% endif %}</td>
+              <td>{{ variant.comb08 }} MPG{% if variant.fuelType1 === 'Electricity' %}e{% endif %}</td>
+            </tr>
           {% endfor %}
-        </ul>
-      </div>
-    </div>
+        </tbody>
+      </table>
+    </section>
 
   </main>
 {% endblock %}
